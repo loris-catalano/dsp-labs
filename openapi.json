@@ -2,16 +2,8 @@
   "openapi": "3.0.4",
   "info": {
     "title": "Film Manager - OpenAPI 3.0",
-    "description": "This is a Film Manager Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the film manager, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Film Manager repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Film Manager](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
-    "termsOfService": "https://swagger.io/terms/",
-    "contact": {
-      "email": "apiteam@swagger.io"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "version": "1.0.12"
+    "description": "This is a Film Manager Server based on the OpenAPI 3.0 specification.",
+    "version": "1.0.0"
   },
   "externalDocs": {
     "description": "Find out more about Swagger",
@@ -19,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://filmmanager.swagger.io/api/v3"
+      "url": "https://filmmanager.swagger.io/api/v1"
     }
   ],
   "tags": [
