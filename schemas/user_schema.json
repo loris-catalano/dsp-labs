@@ -30,7 +30,12 @@
       "id": { "$ref": "#/definitions/id" },
       "name": { "$ref": "#/definitions/name" },
       "email": { "$ref": "#/definitions/email" },
-      "password": { "$ref": "#/definitions/password" }
+      "password": { "$ref": "#/definitions/password" },
+      "self": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI of the user resource"
+      }
     },
     "required": ["id", "name", "email", "password"],
     "additionalProperties": false

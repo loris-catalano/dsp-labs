@@ -45,7 +45,12 @@
         "private": { "$ref": "#/definitions/private" },
         "watchDate": { "$ref": "#/definitions/watchDate"},
         "rating": { "$ref": "#/definitions/rating" },
-        "favorite": { "$ref": "#/definitions/favorite", "default": false }
+        "favorite": { "$ref": "#/definitions/favorite", "default": false },
+        "self": {
+            "type": "string",
+            "format": "uri",
+            "description": "URI of the film resource"
+        }
     },
     "if": {
         "properties": { "private": { "const": false } }

@@ -1,0 +1,1257 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Film Manager - OpenAPI 3.0",
+    "description": "This is a Film Manager Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the film manager, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Film Manager repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Film Manager](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "termsOfService": "https://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.12"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "https://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://filmmanager.swagger.io/api/v3"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "A user of the film manager system"
+    },
+    {
+      "name": "film",
+      "description": "A film in the system"
+    },
+    {
+      "name": "review",
+      "description": "A review of a film"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user.",
+        "description": "Create user.",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system.",
+        "description": "Log into the system.",
+        "operationId": "loginUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email for login",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session.",
+        "description": "Log user out of the system.",
+        "operationId": "logoutUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by user name.",
+        "description": "Get user detail based on username.",
+        "operationId": "getUserByName",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user resource.",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent user in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "404": {
+            "description": "user not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user resource.",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/film": {
+      "post": {
+        "tags": [
+          "film"
+        ],
+        "summary": "Add a new film to the system.",
+        "description": "Add a new film to the system.",
+        "operationId": "addFilm",
+        "requestBody": {
+          "description": "Create a new film in the system",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation exception"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "film"
+        ],
+        "summary": "Get all films you created.",
+        "description": "Get all films you created in the system.",
+        "operationId": "getAllFilmsCreated",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Film"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "film"
+        ],
+        "summary": "Patch an existing film in the system.",
+        "description": "Patch an existing film in the system. Changing visibility from public to private is not allowed.",
+        "operationId": "patchFilm",
+        "requestBody": {
+          "description": "Patch an existent film in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Film"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "404": {
+            "description": "film not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+      }
+      }
+    },
+    "/film/invited": {
+      "get": {
+        "tags": [
+          "film"
+        ],
+        "summary": "Get all films you are invited to review.",
+        "description": "Get all films you are invited to review in the system.",
+        "operationId": "getAllFilmsInvited",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Film"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/assignments": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Automatically assign review invitations.",
+        "description": "Automatically issues review invitations for all public films without any existing invitations. The invitations are distributed evenly among all users in the system, ensuring each user receives approximately the same number of invitations. Only films owned by users and marked as public are considered.",
+        "operationId": "autoAssignReviews",
+        "requestBody": {
+          "description": "Optional parameters for auto-assignment",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reviewersPerFilm": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 3,
+                    "description": "Number of reviewers to assign per film (default: 3)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review invitations assigned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "assignedReviews": {
+                      "type": "integer",
+                      "description": "Total number of review invitations created"
+                    },
+                    "filmsProcessed": {
+                      "type": "integer",
+                      "description": "Number of films that received review invitations"
+                    },
+                    "reviews": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Review"
+                      },
+                      "description": "Array of created review invitations"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "404": {
+            "description": "No films available for review assignment"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/film/{id}":{
+      "get":{
+        "tags": [
+          "film"
+        ],
+        "summary": "Get film by ID.",
+        "description": "Get film detail based on film ID.",
+        "operationId": "getFilmById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID that needs to be fetched. Use 'tt0111161' for testing",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Film"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Film not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "film"
+        ],
+        "summary": "Delete film by ID.",
+        "description": "Delete film in the system by ID. You can only delete films you own.",
+        "operationId": "deleteFilm",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Film deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Film not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/film/{filmId}/reviews": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Issue review invitations for a public film.",
+        "description": "The owner of a public film can issue review invitations to one or more users. The reviewer may be the owner herself.",
+        "operationId": "issueFilmReviews",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "description": "ID of the film to issue review invitations for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Array of reviewer IDs to invite",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reviewers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Array of user IDs to invite for review"
+                  }
+                },
+                "required": ["reviewers"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Review invitations created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Forbidden - only the owner can issue review invitations"
+          },
+          "404": {
+            "description": "Film not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get all review invitations for a film.",
+        "description": "Retrieve all review invitations issued for a specific film.",
+        "operationId": "getFilmReviews",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "description": "ID of the film to get review invitations for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Film not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/film/{filmId}/reviews/{reviewerId}": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get a specific review invitation.",
+        "description": "Retrieve a specific review invitation for a film and reviewer.",
+        "operationId": "getFilmReview",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "description": "ID of the film",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerId",
+            "in": "path",
+            "description": "ID of the reviewer",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Review invitation not found"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Complete a review invitation.",
+        "description": "A reviewer can mark their review as completed, updating the review date, rating, and textual description.",
+        "operationId": "completeReview",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "description": "ID of the film",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerId",
+            "in": "path",
+            "description": "ID of the reviewer",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Review completion data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "completed": {
+                    "type": "boolean",
+                    "description": "Must be true to complete the review"
+                  },
+                  "reviewDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date when the review was completed (YYYY-MM-DD)"
+                  },
+                  "rating": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10,
+                    "description": "Rating of the film (0-10)"
+                  },
+                  "review": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "description": "Textual description of the review (<= 1000 characters)"
+                  }
+                },
+                "required": ["completed", "reviewDate", "rating", "review"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Review completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Forbidden - only the invited reviewer can complete the review"
+          },
+          "404": {
+            "description": "Review invitation not found"
+          },
+          "409": {
+            "description": "Review already completed"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Remove a review invitation.",
+        "description": "The owner of a film can remove a review invitation if the review has not yet been completed.",
+        "operationId": "deleteReviewInvitation",
+        "parameters": [
+          {
+            "name": "filmId",
+            "in": "path",
+            "description": "ID of the film",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewerId",
+            "in": "path",
+            "description": "ID of the reviewer",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Review invitation deleted successfully"
+          },
+          "403": {
+            "description": "Forbidden - only the film owner can delete review invitations"
+          },
+          "404": {
+            "description": "Review invitation not found"
+          },
+          "409": {
+            "description": "Conflict - cannot delete a completed review"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Film": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the film"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the film"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Identifier of the user who owns the film"
+          },
+          "private": {
+            "type": "boolean",
+            "description": "Whether the film is private or public"
+          },
+          "watchDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the film was watched"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "Rating of the film (0-10)"
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "Whether the film is marked as favorite",
+            "default": false
+          },
+          "self": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the film resource"
+          }
+        }
+      },
+      "Review": {
+        "type": "object",
+        "properties": {
+          "filmId": {
+            "type": "string",
+            "description": "Unique identifier of the film for which a review invitation has been issued"
+          },
+          "reviewerId": {
+            "type": "string",
+            "description": "Unique identifier of the user who has received the review invitation"
+          },
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the review has been completed"
+          },
+          "reviewDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the invited user completed the review (YYYY-MM-DD)"
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "Rating of the completed review (0-10)"
+          },
+          "review": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Textual description of the review (<= 1000 characters)"
+          },
+          "self": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link to the film resource"
+          }
+        },
+        "required": ["filmId", "reviewerId", "completed"],
+        "allOf": [
+          {
+            "oneOf": [
+              {
+                "properties": { "completed": { "enum": [true] } },
+                "required": ["completed", "reviewDate", "rating", "review"]
+              },
+              {
+                "properties": { "completed": { "enum": [false] } },
+                "required": ["completed"],
+                "not": {
+                  "anyOf": [
+                    { "required": ["reviewDate"] },
+                    { "required": ["rating"] },
+                    { "required": ["review"] }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+              "description": "Unique identifier of the user"
+            },
+            "name": {
+              "type": "string",
+              "description": "Username of the user",
+              "minLength": 1
+            },
+            "email": {
+              "type": "string",
+              "description": "Email of the user",
+              "format": "email"
+            },
+            "password": {
+              "type": "string",
+              "description": "Password of the user",
+              "minLength": 6,
+              "maxLength": 20
+            },
+            "self": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to the user resource"
+            }
+          },
+          "required": ["id", "name", "email", "password"],
+          "additionalProperties": false
+      },
+      "ApiResponse": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "type": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "self": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to the user resource"
+            }
+          },
+          "xml": {
+            "name": "##default"
+          }
+      },
+      "Error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "self": {
+              "type": "string",
+              "format": "uri",
+              "description": "Link to the user resource"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ]
+      }
+    },
+    "requestBodies": {
+        "Pet": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "UserArray": {
+          "description": "List of user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+    "securitySchemes": {
+        "petstore_auth": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+              "scopes": {
+                "write:pets": "modify pets in your account",
+                "read:pets": "read your pets"
+              }
+            }
+          }
+        },
+        "api_key": {
+          "type": "apiKey",
+          "name": "api_key",
+          "in": "header"
+        }
+      }
+    }
+}

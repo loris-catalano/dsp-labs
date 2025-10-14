@@ -1,5 +1,5 @@
 {
-    "$schema": "./user_schema.json",
+    "$schema": "../user_schema.json",
 	"id": "12345",
 	"name": "john_doe",
 	"email": "john.doe@example.com",

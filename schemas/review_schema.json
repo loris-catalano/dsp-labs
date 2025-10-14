@@ -40,7 +40,12 @@
     "completed": { "$ref": "#/definitions/completed" },
     "reviewDate": { "$ref": "#/definitions/reviewDate" },
     "rating": { "$ref": "#/definitions/rating" },
-    "review": { "$ref": "#/definitions/review" }
+    "review": { "$ref": "#/definitions/review" },
+    "self": {
+        "type": "string",
+        "format": "uri",
+        "description": "URI of the review resource"
+    }
   },
 
   "required": ["filmId", "reviewerId", "completed"],
