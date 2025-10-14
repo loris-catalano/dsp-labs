@@ -1,0 +1,9 @@
+{
+  "$schema": "./review_schema.json",
+  "filmId": "tt0111161",
+  "reviewerId": "12345",
+  "completed": true,
+  "reviewDate": "2023-10-03",
+  "rating": 8,
+  "review": "A moving story with outstanding performances and a compelling narrative arc."
+}

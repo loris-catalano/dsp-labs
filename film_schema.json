@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://s344007.polito.it/film_schema.json",
+
+    "definitions": {
+        "id": {
+            "type": "string",
+            "description": "Unique identifier of the film"
+        },
+        "title": {
+            "type": "string",
+            "description": "Title of the film"
+        },
+        "owner": {
+            "type": "string",
+            "description": "Identifier of the user who owns the film"
+        },
+        "private": {
+            "type": "boolean",
+            "description": "Whether the film is private or public"
+        },
+        "watchDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the film was watched"
+        },
+        "rating": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "Rating of the film (0-10)"
+        },
+        "favorite": {
+            "type": "boolean",
+            "description": "Whether the film is marked as favorite",
+            "default": false
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "id": { "$ref": "#/definitions/id" },
+        "title": { "$ref": "#/definitions/title" },
+        "owner": { "$ref": "#/definitions/owner" },
+        "private": { "$ref": "#/definitions/private" },
+        "watchDate": { "$ref": "#/definitions/watchDate"},
+        "rating": { "$ref": "#/definitions/rating" },
+        "favorite": { "$ref": "#/definitions/favorite", "default": false }
+    },
+    "if": {
+        "properties": { "private": { "const": false } }
+    },
+    "then": {
+        "not": {
+            "anyOf": [
+                { "required": ["watchDate"] },
+                { "required": ["rating"] },
+                { "required": ["favorite"] }
+            ]
+        }
+    },
+    "required": ["id", "title", "owner"]
+}

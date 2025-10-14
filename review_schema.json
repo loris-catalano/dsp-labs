@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://s344007.polito.it/review_schema.json",
+
+  "definitions": {
+    "filmId": {
+      "type": "string",
+      "description": "Unique identifier of the film for which a review invitation has been issued"
+    },
+    "reviewerId": {
+      "type": "string",
+      "description": "Unique identifier of the user who has received the review invitation"
+    },
+    "completed": {
+      "type": "boolean",
+      "description": "Whether the review has been completed"
+    },
+    "reviewDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when the invited user completed the review (YYYY-MM-DD)"
+    },
+    "rating": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "description": "Rating of the completed review (0-10)"
+    },
+    "review": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Textual description of the review (<= 1000 characters)"
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "filmId": { "$ref": "#/definitions/filmId" },
+    "reviewerId": { "$ref": "#/definitions/reviewerId" },
+    "completed": { "$ref": "#/definitions/completed" },
+    "reviewDate": { "$ref": "#/definitions/reviewDate" },
+    "rating": { "$ref": "#/definitions/rating" },
+    "review": { "$ref": "#/definitions/review" }
+  },
+
+  "required": ["filmId", "reviewerId", "completed"],
+  
+  "allOf": [
+    {
+      "if": {
+        "properties": { "completed": { "const": true } },
+        "required": ["completed"]
+      },
+      "then": {
+        "required": ["reviewDate", "rating", "review"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "completed": { "const": false } },
+        "required": ["completed"]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["reviewDate"] },
+            { "required": ["rating"] },
+            { "required": ["review"] }
+          ]
+        }
+      }
+    }
+  ]
+}
