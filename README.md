@@ -1,4 +1,4 @@
-# Distributed Systems Labs
+# Distributed Systems Programming Labs
 
 This repository collects laboratory exercises for the Distributed Systems course. 
 
