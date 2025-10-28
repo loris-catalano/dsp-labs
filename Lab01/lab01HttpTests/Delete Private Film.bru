@@ -1,0 +1,17 @@
+meta {
+  name: Delete Private Film
+  type: http
+  seq: 10
+}
+
+delete {
+  url: http://localhost:3001/api/films/private/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

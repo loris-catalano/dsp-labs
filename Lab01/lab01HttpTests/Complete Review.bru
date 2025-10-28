@@ -1,0 +1,28 @@
+meta {
+  name: Complete Review
+  type: http
+  seq: 15
+}
+
+put {
+  url: http://localhost:3001/api/films/2/reviews/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "filmId": "2",
+      "reviewerId": "2",
+      "completed": true,
+      "reviewDate": "2023-10-03",
+      "rating": 8,
+      "review": "A moving story with outstanding performances and a compelling narrative arc."
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

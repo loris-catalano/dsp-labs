@@ -1,0 +1,17 @@
+meta {
+  name: Get Private Films
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3001/api/films/private
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

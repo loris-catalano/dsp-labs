@@ -1,0 +1,25 @@
+meta {
+  name: Update Public Film
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3001/api/films/public/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "id": "2",
+      "title": "Heaven's Feel - Updated",
+      "owner": "1",
+      "private": false
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

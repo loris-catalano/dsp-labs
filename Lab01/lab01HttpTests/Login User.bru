@@ -1,0 +1,23 @@
+meta {
+  name: Login User
+  type: http
+  seq: 19
+}
+
+post {
+  url: http://localhost:3001/api/users/authenticator
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "email": "user.dsp@polito.it",
+      "password": "password"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

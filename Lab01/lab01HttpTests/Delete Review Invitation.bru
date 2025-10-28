@@ -1,0 +1,17 @@
+meta {
+  name: Delete Review Invitation
+  type: http
+  seq: 16
+}
+
+delete {
+  url: http://localhost:3001/api/films/2/reviews/5
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

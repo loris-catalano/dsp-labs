@@ -1,0 +1,28 @@
+meta {
+  name: Issue Review Invitation
+  type: http
+  seq: 13
+}
+
+post {
+  url: http://localhost:3001/api/films/2/reviews
+  body: json
+  auth: inherit
+}
+
+body:json {
+  [
+    {
+      "reviewerId": "3"
+    },
+    {
+      "reviewerId": "4"
+    }
+  ]
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

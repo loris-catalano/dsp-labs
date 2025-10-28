@@ -16,7 +16,7 @@ tags:
 - name: review
   description: A review of a film
 paths:
-  /user:
+  /users:
     post:
       tags:
       - user
@@ -52,7 +52,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: User
-  /user/login:
+  /users/login:
     get:
       tags:
       - user
@@ -111,7 +111,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: User
-  /user/logout:
+  /users/logout:
     get:
       tags:
       - user
@@ -129,7 +129,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: User
-  /user/{username}:
+  /users/{username}:
     get:
       tags:
       - user
@@ -236,7 +236,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: User
-  /film:
+  /films:
     get:
       tags:
       - film
@@ -266,7 +266,7 @@ paths:
       - film
       summary: Add a new film to the system.
       description: Add a new film to the system.
-      operationId: addFilm
+      operationId: createFilm
       requestBody:
         description: Create a new film in the system
         content:
@@ -334,7 +334,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: Film
-  /film/invited:
+  /films/invited:
     get:
       tags:
       - film
@@ -395,7 +395,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: Review
-  /film/{id}:
+  /films/{id}:
     get:
       tags:
       - film
@@ -459,7 +459,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: Film
-  /film/{filmId}/reviews:
+  /films/{filmId}/reviews:
     get:
       tags:
       - review
@@ -540,7 +540,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
       x-swagger-router-controller: Review
-  /film/{filmId}/reviews/{reviewerId}:
+  /films/{filmId}/reviews/{reviewerId}:
     get:
       tags:
       - review
@@ -925,15 +925,6 @@ components:
           type: string
           description: Textual description of the review (<= 1000 characters)
   requestBodies:
-    Pet:
-      description: Pet object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/User"
-        application/xml:
-          schema:
-            $ref: "#/components/schemas/User"
     UserArray:
       description: List of user object
       content:
@@ -943,14 +934,6 @@ components:
             items:
               $ref: "#/components/schemas/User"
   securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
-          scopes:
-            write:pets: modify pets in your account
-            read:pets: read your pets
     api_key:
       type: apiKey
       name: api_key

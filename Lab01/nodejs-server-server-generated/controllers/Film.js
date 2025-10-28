@@ -1,10 +1,29 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var Film = require('../service/FilmService');
+var Film = require('../service/FilmsService');
 
-module.exports.addFilm = function addFilm (req, res, next, body) {
-  Film.addFilm(body)
+module.exports.createFilm = function createFilm (req, res, next) {
+  const body = req.body;
+  const owner = (req && req.user && req.user.id) ? req.user.id : (body && body.owner ? body.owner : undefined);
+  
+  Film.createFilm(body, owner)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (err) {
+      console.error('createFilm error:', err);
+
+      if (err instanceof Error) {
+        utils.writeJson(res, { message: err.message }, 500);
+      } else {
+        utils.writeJson(res, err);
+      }
+    });
+};
+
+module.exports.getAllFilms = function getAllFilms (req, res, next) {
+  Film.getAllFilms()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -13,8 +32,9 @@ module.exports.addFilm = function addFilm (req, res, next, body) {
     });
 };
 
-module.exports.addFilm = function addFilm (req, res, next, body) {
-  Film.addFilm(body)
+module.exports.getPublicFilms = function getPublicFilms (req, res, next) {
+  const pageNo = req.query.pageNo;
+  Film.getPublicFilms(pageNo)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -23,8 +43,10 @@ module.exports.addFilm = function addFilm (req, res, next, body) {
     });
 };
 
-module.exports.deleteFilm = function deleteFilm (req, res, next, id) {
-  Film.deleteFilm(id)
+module.exports.getPrivateFilms = function getPrivateFilms (req, res, next) {
+  const userId = req.user ? req.user.id : undefined;
+  const pageNo = req.query.pageNo;
+  Film.getPrivateFilms(userId, pageNo)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -33,8 +55,10 @@ module.exports.deleteFilm = function deleteFilm (req, res, next, id) {
     });
 };
 
-module.exports.getAllFilmsCreated = function getAllFilmsCreated (req, res, next) {
-  Film.getAllFilmsCreated()
+module.exports.getInvitedFilms = function getInvitedFilms (req, res, next) {
+  const userId = req.user ? req.user.id : undefined;
+  const pageNo = req.query.pageNo;
+  Film.getInvitedFilms(userId, pageNo)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -43,8 +67,9 @@ module.exports.getAllFilmsCreated = function getAllFilmsCreated (req, res, next)
     });
 };
 
-module.exports.getAllFilmsInvited = function getAllFilmsInvited (req, res, next) {
-  Film.getAllFilmsInvited()
+module.exports.getSinglePublicFilm = function getSinglePublicFilm (req, res, next) {
+  const filmId = req.params.filmId;
+  Film.getSinglePublicFilm(filmId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -53,8 +78,10 @@ module.exports.getAllFilmsInvited = function getAllFilmsInvited (req, res, next)
     });
 };
 
-module.exports.getFilmById = function getFilmById (req, res, next, id) {
-  Film.getFilmById(id)
+module.exports.getSinglePrivateFilm = function getSinglePrivateFilm (req, res, next) {
+  const filmId = req.params.filmId;
+  const owner = req.user ? req.user.id : undefined;
+  Film.getSinglePrivateFilm(filmId, owner)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -63,8 +90,11 @@ module.exports.getFilmById = function getFilmById (req, res, next, id) {
     });
 };
 
-module.exports.patchFilm = function patchFilm (req, res, next, body) {
-  Film.patchFilm(body)
+module.exports.updateSinglePublicFilm = function updateSinglePublicFilm (req, res, next) {
+  const film = req.body;
+  const filmId = req.params.filmId;
+  const owner = req.user ? req.user.id : undefined;
+  Film.updateSinglePublicFilm(film, filmId, owner)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -73,8 +103,35 @@ module.exports.patchFilm = function patchFilm (req, res, next, body) {
     });
 };
 
-module.exports.patchFilm = function patchFilm (req, res, next, body) {
-  Film.patchFilm(body)
+module.exports.updateSinglePrivateFilm = function updateSinglePrivateFilm (req, res, next) {
+  const film = req.body;
+  const filmId = req.params.filmId;
+  const owner = req.user ? req.user.id : undefined;
+  Film.updateSinglePrivateFilm(film, filmId, owner)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.deleteSinglePublicFilm = function deleteSinglePublicFilm (req, res, next) {
+  const filmId = req.params.filmId;
+  const owner = req.user ? req.user.id : undefined;
+  Film.deleteSinglePublicFilm(filmId, owner)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.deleteSinglePrivateFilm = function deleteSinglePrivateFilm (req, res, next) {
+  const filmId = req.params.filmId;
+  const owner = req.user ? req.user.id : undefined;
+  Film.deleteSinglePrivateFilm(filmId, owner)
     .then(function (response) {
       utils.writeJson(res, response);
     })

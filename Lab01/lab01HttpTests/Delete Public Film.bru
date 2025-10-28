@@ -1,0 +1,17 @@
+meta {
+  name: Delete Public Film
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:3001/api/films/public/3
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

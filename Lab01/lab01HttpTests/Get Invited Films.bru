@@ -1,0 +1,17 @@
+meta {
+  name: Get Invited Films
+  type: http
+  seq: 11
+}
+
+get {
+  url: http://localhost:3001/api/films/invited
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

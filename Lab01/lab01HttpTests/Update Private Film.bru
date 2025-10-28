@@ -1,0 +1,29 @@
+meta {
+  name: Update Private Film
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:3001/api/films/private/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "id": "1",
+      "title": "Your Name - Updated",
+      "owner": "1",
+      "private": true,
+      "watchDate": "2023-10-01",
+      "rating": 10,
+      "favorite": true
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  withCredentials: true
+}

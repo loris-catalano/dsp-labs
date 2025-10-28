@@ -1,10 +1,10 @@
 'use strict';
 
 var utils = require('../utils/writer.js');
-var User = require('../service/UserService');
+var User = require('../service/UsersService');
 
-module.exports.createUser = function createUser (req, res, next, body) {
-  User.createUser(body)
+module.exports.getUsers = function getUsers (req, res, next) {
+  User.getUsers()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -13,8 +13,9 @@ module.exports.createUser = function createUser (req, res, next, body) {
     });
 };
 
-module.exports.createUser = function createUser (req, res, next, body) {
-  User.createUser(body)
+module.exports.getUserById = function getUserById (req, res, next) {
+  const userId = req.params.userId;
+  User.getUserById(userId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -23,28 +24,8 @@ module.exports.createUser = function createUser (req, res, next, body) {
     });
 };
 
-module.exports.deleteUser = function deleteUser (req, res, next, username) {
-  User.deleteUser(username)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.getUserByName = function getUserByName (req, res, next, username) {
-  User.getUserByName(username)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.loginUser = function loginUser (req, res, next, email, password) {
-  User.loginUser(email, password)
+module.exports.authenticateUser = function authenticateUser (req, res, next) {
+  User.authenticateUser(req, res, next)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -54,27 +35,7 @@ module.exports.loginUser = function loginUser (req, res, next, email, password) 
 };
 
 module.exports.logoutUser = function logoutUser (req, res, next) {
-  User.logoutUser()
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.updateUser = function updateUser (req, res, next, body, username) {
-  User.updateUser(body, username)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.updateUser = function updateUser (req, res, next, body, username) {
-  User.updateUser(body, username)
+  User.logoutUser(res, req)
     .then(function (response) {
       utils.writeJson(res, response);
     })

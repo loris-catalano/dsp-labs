@@ -19,6 +19,27 @@ Each schema was validated in **Visual Studio Code**, using example JSON files to
 The second part involved designing and partially implementing a set of **RESTful APIs** for the Film Manager platform.  
 The API specification was created using **OpenAPI (Swagger) Editor**, leveraging the previously defined schemas. A **Node.js + Express** implementation was generated from the specification using Swagger tools.
 
+## 3. Server Stub Generation and Integration
+The third step focused on implementing a fully functional server by:
+1. **Generating the server stub** from the OpenAPI specification using Swagger Codegen
+2. **Integrating the generated code** with the server structure provided by the professors
+3. **Implementing the logic** to create a complete and operational REST API server
+
+### Server Stub Generation
+The server stub was automatically generated from the `openapi.yaml` specification file using **Swagger Codegen** for Node.js.
+
+### Integration Process
+The generated stub was then integrated with the professor's provided server structure.
+
+This is what I added:
+- API Routes
+- JSON Validation Middleware
+- Components logic
+- Controllers logic
+- HTTP Tests
+
+The result was a **fully functional Film Manager API server** capable of handling all CRUD operations for users, films, and reviews, with proper authentication and authorization mechanisms.
+
 ## Tools Used
 - **Visual Studio Code** – development and schema validation  
 - **Swagger Editor** – OpenAPI specification and stub generation  
